@@ -12,4 +12,13 @@ Create a catalogue of people in Star Wars, where you can search for people, and 
 
 ·                     Think about API error handling
 
+
 We estimate this task to take between 6-8 hours and we will be looking for code quality, application architecture, reusability and UX.
+
+* Clarifications
+- make a catalog of all the characters that display when the page loads (or when the API call is done). 
+- search functionality that filters then down 
+- sort function (think tallest to shortest or whatever metric you really want to use). 
+- The click on a character, I should see a character detail page with their information. It should also show other characters from their planet that I can click on and load their character detail page.
+
+ 
