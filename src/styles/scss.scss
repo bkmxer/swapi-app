@@ -1,0 +1,401 @@
+:root {
+    font-family: 'Roboto', sans-serif;
+    padding: 0;
+    margin: 0;
+
+    // color variables
+    --main-bg-color: #1d213c;
+    --secondary-bg-color: #242a4b;
+    --main-text-color: #fff;
+    --main-active-color: #9098d8;
+    --seecondary-button-bg: #2b335b;
+    --color-saber-red: #e51115;
+    --active-yellow: #FFE81F;
+
+    // transition set
+    --default-transition-time: 0.2s;
+    --default-transition-bezier: cubic-bezier(0.785, 0.135, 0.15, 0.86);
+
+    // font variables
+    --font-size: 16px;
+}
+
+/* Animations */
+@keyframes vader {
+	from { box-shadow: 0 0 10px var(--color-saber-red); }
+	50% { box-shadow: 0 0 16px var(--color-saber-red); }
+	to { box-shadow: 0 0 10px var(--color-saber-red); }
+}
+
+// [TODO] Extend SCSS funcions into a separate file
+
+$fontSizeVal: 16;
+@function rem-calc($size) {
+    $remSize: $size / #{$fontSizeVal};
+    @return #{$remSize}rem;
+}
+
+body {
+    width: 100%;
+    overflow-x: hidden;
+    padding: 0;
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--secondary-bg-color);
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+// setting default input styles
+input {
+    border: none;
+    background: none;
+    box-shadow: none;
+    height: 48px;
+    padding: 0 12px;
+
+    &::placeholder {
+        color: var(--main-text-color)
+    }
+}
+
+// setting default button styles
+button {
+    background: none;
+    border: none;
+    box-shadow: none;
+}
+
+// Helper classes START
+.visually-hidden {
+	position: absolute !important;
+	clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+	clip: rect(1px, 1px, 1px, 1px);
+	padding:0 !important;
+	border:0 !important;
+	height: 1px !important;
+	width: 1px !important;
+	overflow: hidden;
+}
+// Helper classes END
+
+// [Header] START
+header {
+    display: flex;
+    align-items: center;
+    background-color: var(--main-bg-color);
+    padding: 0 30px;
+    border-bottom-left-radius: 30px;
+}
+
+.header {
+    &__logo {
+        width: 150px;
+        margin-right: 40px;
+    }
+}
+
+.navigation {
+    &__icon {
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+    }
+
+    &__list {
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+        display: flex;
+        align-items: center;
+    }
+
+    &__link {
+        display: flex;
+        align-items: center;
+        color: var(--main-text-color);
+        transition: color 0.2s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+        text-decoration: none;
+
+        &:hover,
+        &:active,
+        &:focus {
+            color: var(--main-active-color);
+            text-decoration: none;
+        }
+    }
+}
+
+// [Header] END
+
+// [Main] START
+main {
+    background-color: var(--secondary-bg-color);
+    padding: 50px 30px;
+}
+// [Main] END
+
+// [Search] START
+.search {
+    &__form {
+        position: relative;
+        display: flex;
+        min-width: 300px;
+        width: 50%;
+        margin: 0 auto;
+        color: var(--main-text-color);
+    }
+
+    &__input {
+        background-color: var(--seecondary-button-bg);
+        padding-left: 50px;
+        border-radius: 3px;
+        width: 100%;
+    }
+
+    &__button {
+        position: absolute;
+        left: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 30px;
+        height: 30px;
+        color: inherit;
+    }
+}
+// [Search] END
+
+// [Characters Grid] START
+
+.lightsaber {
+    .darth-vader {
+        cursor: pointer;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        z-index: 88;
+        text-indent: -9999px;
+        width: 15px;
+        height: 50px;
+        border-bottom: solid 4px grey;
+        border-top: solid 5px grey;
+        border-radius: 5px;
+        background: rgb(226,226,226); /* Old browsers */
+        background: linear-gradient(to right, rgba(226,226,226,1) 0%,rgba(219,219,219,1) 50%,rgba(209,209,209,1) 51%,rgba(254,254,254,1) 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', endColorstr='#fefefe',GradientType=1 ); /* IE6-9 */
+    }
+
+    .switch {
+        background: #B94A37;
+        width: 5px;
+        height: 10px;
+        display: block;
+        position: absolute;
+        bottom: 25px;
+        left: 13px;
+        transition: left 200ms;
+        border-radius: 10px;
+    }
+
+    .darth-vader-saber {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        opacity: 0;
+        z-index: 77;
+    }
+
+    .plasma {
+        transition: height 300ms,;
+        border-radius: 12px 12px 0 0;
+        position: absolute;
+        bottom: 55px;
+        left: 2px;
+        width: 10px;
+        display: block;
+        filter: blur(1px);
+        height: 0;
+    }
+}
+
+.vader {
+	background: rgb(229,17,21); /* Old browsers */
+	background: linear-gradient(to right, rgba(229,17,21,1) 0%,rgba(254,254,254,1) 30%,rgba(254,254,254,1) 47%,rgba(254,254,254,1) 71%,rgba(229,17,21,1) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e51115', endColorstr='#e51115',GradientType=1 ); /* IE6-9 */
+	animation-name: vader;
+	animation-duration: 2s;
+	animation-iteration-count: infinite;
+}
+
+.animation-item {
+    position: absolute;
+    bottom: 0;
+    right: 10px;
+}
+
+.characters {
+    &__grid {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 50px 0;
+    }
+
+    &__card {
+        position: relative;
+        width: calc((100% / 3) - 65px);
+        display: flex;
+        padding: 20px;
+        margin: 10px;
+        border-radius: 5px;
+        border: 1px solid var(--seecondary-button-bg);
+        background-color: var(--seecondary-button-bg);
+        box-shadow: 0px 40px 60px -20px rgba(0,0,0,0.2);
+
+        &:hover {
+            .darth-vader-saber {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                opacity: 0;
+                z-index: 77;
+
+                ~ div.switch {
+                    background: #468847;
+                    left: 12px;
+                }
+
+                ~ div.plasma {
+                    height: 200px;
+                }
+            }
+        }
+    }
+
+    &__img {
+        max-width: 30%;
+        border-radius: 5px;
+        object-fit: cover;
+        margin-right: 24px;
+    }
+
+    &__name {
+        font-size: rem-calc(16);
+        font-weight: 600;
+        color: var(--main-text-color);
+    }
+
+    &__attrs {
+        opacity: 0.65;
+    }
+
+    &__attr {
+        color: var(--main-text-color);
+        margin-bottom: 10px;
+    }
+}
+
+.card {
+    &__more-button {
+        padding: 10px;
+        border-radius: 10px;
+        background-color: var(--seecondary-button-bg);
+        color: var(--active-yellow);
+        border: 1px solid var(--active-yellow);
+        text-decoration: none;
+        position: absolute;
+        right: 50px;
+        top: 50%;
+        width: 75px;
+        height: 75px;
+        text-align: center;
+        transform: translateY(-50%);
+        transition: all var(--default-transition-time) var(--default-transition-bezier);
+
+        &:hover {
+            background-color: var(--active-yellow);
+            color: var(--main-bg-color);
+            border: 1px solid var(--active-yellow);
+        }
+
+        svg {
+            max-width: 70%;
+            margin-bottom: 5px;
+        }
+    }
+}
+
+// [Characters Grid] END
+
+// [Recommendations] START
+.recommendations {
+    &__header {
+        color: var(--main-text-color);
+        text-align: center;
+        margin-top: 60px;
+    }
+}
+// [Recommendations] END
+
+
+
+// [Footer] START
+footer {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    background-color: var(--main-bg-color);
+    padding: 0 30px;
+    border-top-left-radius: 30px;
+    color: var(--main-text-color);
+}
+
+.footer {
+    &__logo {
+        width: 100px;
+    }
+
+    &__navigation-list {
+        display: flex;
+        margin-left: 50px;
+    }
+
+    &__navigation-link {
+        display: flex;
+        color: var(--main-text-color);
+        text-decoration: none;
+        border-radius: 10px;
+        background-color: var(--seecondary-button-bg);
+        padding: 20px;
+        margin-right: 20px;
+        transition: color 0.2s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+
+        &:hover,
+        &:active,
+        &:focus {
+            color: var(--main-active-color);
+            text-decoration: none;
+        }
+    }
+
+    &__info {
+        border-radius: 10px;
+        background-color: var(--seecondary-button-bg);
+        padding: 25px;
+        max-width: 50%;
+        margin-left: auto;
+    }
+
+    &__navigation__icon {
+        margin: 0;
+        width: 20px;
+        height: 20px;
+    }
+}
+// [Footer] END
+
