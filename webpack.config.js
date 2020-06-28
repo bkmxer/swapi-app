@@ -92,7 +92,7 @@ const plugins = () => {
       template: './character.html',
       minify: {
         collapseWhitespace: isProd
-      }
+      },
     }),
     new CleanWebpackPlugin(),
     new CopyWebpackPlugin([
@@ -117,8 +117,7 @@ module.exports = {
   context: path.resolve(__dirname, 'src'),
   mode: 'development',
   entry: {
-    main: ['@babel/polyfill', './index.js'],
-    character: ['@babel/polyfill', './character.js']
+    main: ['@babel/polyfill', './index.js']
   },
   output: {
     filename: filename('js'),
@@ -178,22 +177,6 @@ module.exports = {
         exclude: /node_modules/,
         use: jsLoaders()
       }
-      // {
-      //   test: /\.ts$/,
-      //   exclude: /node_modules/,
-      //   loader: {
-      //     loader: 'babel-loader',
-      //     options: babelOptions('@babel/preset-typescript')
-      //   }
-      // },
-      // {
-      //   test: /\.jsx$/,
-      //   exclude: /node_modules/,
-      //   loader: {
-      //     loader: 'babel-loader',
-      //     options: babelOptions('@babel/preset-react')
-      //   }
-      // }
     ]
   }
 }

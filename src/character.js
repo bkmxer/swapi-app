@@ -89,6 +89,7 @@ document.addEventListener("DOMContentLoaded", init, false);
 document.addEventListener("character:done", (e) => {initRecommendations(e.detail.planet)}, false) // passing the planet url via custom event
 
 function init() {
+    console.log('HELLO FROM CHAR')
     var con = document.querySelector("#console");
 
     function log() {
@@ -285,36 +286,6 @@ async function log(planet, pageCounter) {
             filteredResults.forEach(element => renderCard('#char-card', element));
         });
 }
-
-
-// async function initRecommendationsProxy(planet) { // [TODO] Use a proper Promises approach
-//     // get all people from the planet
-//     var arrayOfResults = [];
-
-//     for (let i = 1; i < 10; i++) {
-//         if (arrayOfResults.length < 4) {
-//             let data = await swapiModule.getPeople({page: i});
-//             let tempArrayOfResults = data.results.filter(function(result){
-//                 return await result.homeworld == planet;
-//             });
-
-//             for (let x = 0; x < tempArrayOfResults.length; x++) {
-//                 arrayOfResults.push(tempArrayOfResults[x])
-//             }
-//         }
-//     }
-
-//     // prepare data
-//     await console.log('arrayOfResults: ', arrayOfResults);
-//     await arrayOfResults.forEach(function (char, index) {
-//         renderCard('#char-card', char)
-//     });
-
-//     // set
-
-//     // add to document DOM
-//     return arrayOfResults;
-// }
 
 /**
  * @description Determines if a string is a valid https/http URL or not

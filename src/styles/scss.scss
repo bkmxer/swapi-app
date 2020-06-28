@@ -134,6 +134,22 @@ main {
         color: inherit;
     }
 }
+
+.sort {
+    background-color: var(--seecondary-button-bg);
+    border-radius: 3px;
+    width: 100px;
+    margin-left: 20px;
+    color: var(--main-text-color);
+    border: none;
+    padding: 0 10px;
+
+    &:hover,
+    &:focus {
+        background-color: var(--main-bg-color);
+        cursor: pointer;
+    }
+}
 // [Search] END
 
 // [Characters Grid] START
