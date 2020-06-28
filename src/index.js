@@ -89,6 +89,14 @@ document.addEventListener("DOMContentLoaded", init, false);
 document.addEventListener("character:done", (e) => {initRecommendations(e.detail.planet)}, false) // passing the planet url via custom event
 
 const searchInput = document.querySelector('.search__input');
+const sortSelect = document.querySelector('#sort');
+var direction = 1;
+
+sortSelect.addEventListener("change", () => {
+    sort(sortSelect.value, direction *= -1);
+    sortSelect.blur();
+});
+
 if (searchInput) {
     const grid = document.querySelector('.characters__grid');
 
@@ -148,7 +156,7 @@ function init() {
             for (var attr in data) {
                 let propValue = data[attr];
                 if (attr != "name" && propValue != "" && (!isNaN(propValue) || (!validURL(propValue) && !isDate(propValue) && !isArray(propValue) && propValue != ""))) {
-                    charAttrsHTML += `<li class="characters__attr characters__attr--big"><span class="attr">${attr.replace(/_/g, ' ')}</span> : ${propValue}</li>`
+                    charAttrsHTML += `<li class="characters__attr characters__attr--${attr} characters__attr--big"><span class="attr">${attr.replace(/_/g, ' ')}</span> : <span class="characters__val--${attr}">${propValue}</span></li>`
                 }
             }
 
@@ -281,6 +289,43 @@ function removeElement(id) { // not in use
 
 /**
  *
+ * @description Sorts the DOM elements
+ * @param {string} template Card template ID
+ * @param {object} card Character object
+ * @return {void}
+ */
+function sort(attrName, direction) {
+    var list = document.getElementById('characters-grid');
+
+    // [TODO] re-do using a spread operator
+    var items = list.childNodes;
+    var itemsArr = [];
+
+    for (var i in items) {
+        if (items[i].nodeType == 1) { // get rid of the whitespace text nodes
+            itemsArr.push(items[i]);
+        }
+    }
+
+    itemsArr.sort(function(a, b) {
+        var valA = a.querySelector(`.characters__val--${attrName}`).innerText.trim() ? a.querySelector(`.characters__val--${attrName}`).innerText.trim() : 0;
+        var valB = a.querySelector(`.characters__val--${attrName}`).innerText.trim() ? a.querySelector(`.characters__val--${attrName}`).innerText.trim() : 0;
+
+        console.log(valA, valB);
+        return valA == valB
+                ? 0
+                : (valA > valB ? 1 : -1);
+    });
+
+    console.log(itemsArr);
+
+    for (i = 0; i < itemsArr.length; ++i) {
+        list.appendChild(itemsArr[i]);
+    }
+}
+
+/**
+ *
  * @description Inserts the char card
  * @param {string} template Card template ID
  * @param {object} card Character object
@@ -299,7 +344,7 @@ function renderCard(template, char) {
     for (var attr in char) { // make re-usable
         let propValue = char[attr];
         if (attr != "eye_color" && attr != "name" && propValue != "" && (!isNaN(propValue) || (!validURL(propValue) && !isDate(propValue) && !isArray(propValue) && propValue != ""))) {
-            charAttrsHTML += `<li class="characters__attr"><span class="attr">${attr.replace(/_/g, ' ')}</span> : ${propValue}</li>`
+            charAttrsHTML += `<li class="characters__attr characters__attr--${attr}"><span class="attr">${attr.replace(/_/g, ' ')}</span> : <span class="characters__val--${attr}">${propValue}</span></li>`
         }
     }
 
@@ -308,8 +353,8 @@ function renderCard(template, char) {
     t.content.querySelector('.characters__attrs').innerHTML = charAttrsHTML;
     t.content.querySelector('.card__more-button').href = `./character.html?char=${personToRender}`;
     t.content.querySelector('.characters__attrs').innerHTML += `
-        <li class="characters__attr" style="color: ${char.eye_color};">
-        <span class="attr">${('eye_color').replace(/_/g, ' ')}</span> : ${char.eye_color}</li>`; // :D it doesn't really makes sense, just for fun
+        <li class="characters__attr  characters__attr--${'eye_color'}" style="color: ${char.eye_color};">
+        <span class="attr">${('eye_color').replace(/_/g, ' ')}</span> : <span>${char.eye_color}</span></li>`; // :D it doesn't really makes sense, just for fun
     t.content.querySelector('.characters__img-wrap').innerHTML = `
     <img src="https://starwars-visualguide.com/assets/img/characters/${personToRender}.jpg"
             alt="Characters image" class="characters__img"

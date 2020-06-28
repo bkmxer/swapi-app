@@ -52,7 +52,7 @@
             </svg>
         </button>
 
-        <select name="sort" id="sort" class="sort">
+        <select name="sort" id="sort" class="sort" onfocus="this.selectedIndex = -1;">
             <option>Sort</option>
             <option value="height">By Height</option>
             <option value="mass">By Mass</option>
@@ -136,7 +136,7 @@
         </div>
     </template>
 
-    <div class="characters__grid">
+    <div class="characters__grid" id="characters-grid">
         <div class="card characters__card characters__card--placeholder">
             <div class="animation-item">
                 <div class="lightsaber">
