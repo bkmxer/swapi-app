@@ -1,8 +1,7 @@
-import * as $ from 'jquery'
+// import * as $ from 'jquery'
 // import json from './assets/json.json'
 // import xml from './assets/data.xml'
 // import csv from './assets/data.csv'
-import './babel'
 import './styles/styles.css'
 // import './styles/less.less'
 import './styles/scss.scss'
@@ -11,8 +10,8 @@ import './styles/scss.scss'
 // console.log('XML:', xml)
 // console.log('CSV:', csv)
 
-var swapiModule = (function() {
-    var rootURL = "http://localhost:3000/"; // to be changed to the http://swapi.co/api/ later on, CORS issue;
+const swapiModule = (function() {
+    var rootURL = "https://swapi.dev/api/"; // to be changed to the http://swapi.co/api/ later on, CORS issue;
 
     function request(url, cb) {
       return fetch(url)

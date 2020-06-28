@@ -118,7 +118,7 @@ module.exports = {
   mode: 'development',
   entry: {
     main: ['@babel/polyfill', './index.js'],
-    character: ['@babel/polyfill', './index.js']
+    character: ['@babel/polyfill', './character.js']
   },
   output: {
     filename: filename('js'),

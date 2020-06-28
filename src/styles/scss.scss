@@ -1,54 +1,4 @@
-:root {
-    font-family: 'Roboto', sans-serif;
-    padding: 0;
-    margin: 0;
-
-    // color variables
-    --main-bg-color: #1d213c;
-    --secondary-bg-color: #242a4b;
-    --main-text-color: #fff;
-    --main-active-color: #9098d8;
-    --seecondary-button-bg: #2b335b;
-    --color-saber-red: #e51115;
-    --active-yellow: #FFE81F;
-
-    // transition set
-    --default-transition-time: 0.2s;
-    --default-transition-bezier: cubic-bezier(0.785, 0.135, 0.15, 0.86);
-
-    // font variables
-    --font-size: 16px;
-}
-
-/* Animations */
-@keyframes vader {
-	from { box-shadow: 0 0 10px var(--color-saber-red); }
-	50% { box-shadow: 0 0 16px var(--color-saber-red); }
-	to { box-shadow: 0 0 10px var(--color-saber-red); }
-}
-
-// Mixins
-@mixin skeleton-glow {
-    &::after {
-        content: '';
-        display: block;
-        position: absolute;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        transform: translateX(-100%);
-        background: linear-gradient(90deg, transparent, rgba(29, 33, 60, .4), transparent);
-        animation: loading 1.5s infinite;
-    }
-}
-
-// [TODO] Extend SCSS funcions into a separate file
-
-$fontSizeVal: 16;
-@function rem-calc($size) {
-    $remSize: $size / #{$fontSizeVal};
-    @return #{$remSize}rem;
-}
+@import './basic.scss';
 
 body {
     width: 100%;
@@ -293,16 +243,58 @@ main {
     }
 
     &__img {
-        max-width: 30%;
+        max-width: 100%;
         border-radius: 5px;
         object-fit: cover;
+    }
+
+    &__img-wrap {
+        max-width: 30%;
         margin-right: 24px;
+
+        &:empty {
+            position: relative;
+            overflow: hidden;
+            margin-right: 20px;
+            width: 30%;
+
+            &::before {
+                content: '';
+                display: block;
+                position: relative;
+                min-width: 100%;
+                width: 100%;
+                height: 200px;
+                background-color: var(--secondary-bg-color);
+            }
+
+            @include skeleton-glow;
+        }
     }
 
     &__name {
         font-size: rem-calc(16);
         font-weight: 600;
         color: var(--main-text-color);
+        position: relative;
+        overflow: hidden;
+        margin-top: 0;
+
+        &:empty {
+            width: 130px;
+            margin-right: 20px;
+
+            &::before {
+                content: '';
+                display: block;
+                position: relative;
+                width: 100%;
+                height: 20px;
+                background-color: var(--secondary-bg-color);
+            }
+
+            @include skeleton-glow;
+        }
     }
 
     &__attrs {
@@ -313,8 +305,30 @@ main {
         color: var(--main-text-color);
         margin-bottom: 10px;
 
+        &:empty {
+            width: 100px;
+            position: relative;
+            overflow: hidden;
+
+            &::before {
+                content: '';
+                display: block;
+                position: relative;
+                width: 100%;
+                height: 16px;
+                background-color: var(--secondary-bg-color);
+            }
+
+            @include skeleton-glow;
+        }
+
         &--big {
             font-size: rem-calc(18);
+            text-transform: capitalize;
+
+            span {
+                color: var(--main-active-color);
+            }
         }
     }
 }
@@ -453,7 +467,6 @@ main {
     &__movie-img {
         object-fit: cover;
         width: 80px;
-        height: 80px;
         margin-right: 10px;
     }
 
