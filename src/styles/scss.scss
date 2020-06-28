@@ -133,6 +133,13 @@ main {
         height: 30px;
         color: inherit;
     }
+
+    &__message {
+        &--failure {
+            margin: 0 auto;
+            color: var(--active-yellow);
+        }
+    }
 }
 
 .sort {
@@ -150,6 +157,7 @@ main {
         cursor: pointer;
     }
 }
+
 // [Search] END
 
 // [Characters Grid] START

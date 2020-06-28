@@ -99,7 +99,11 @@ if (searchInput) {
             } else {
                 swapiModule.getPeople({search: searchInput.value}).then(function(data) {
                     grid.innerHTML = "";
-                    data.results.forEach(element => renderCard('#char-card', element));
+                    if (!data.results.length) {
+                        grid.innerHTML = "<h2 class='search__message--failure'>Nothing found :( May the search be with you! )</h2>"
+                    } else {
+                        data.results.forEach(element => renderCard('#char-card', element));
+                    }
                 });
             }
         }, 500);
