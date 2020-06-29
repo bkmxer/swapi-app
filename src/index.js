@@ -92,10 +92,12 @@ const searchInput = document.querySelector('.search__input');
 const sortSelect = document.querySelector('#sort');
 var direction = 1;
 
-sortSelect.addEventListener("change", () => {
-    sort(sortSelect.value, direction *= -1);
-    sortSelect.blur();
-});
+if (sortSelect) {
+    sortSelect.addEventListener("change", () => {
+        sort(sortSelect.value, direction *= -1);
+        sortSelect.blur();
+    });
+}
 
 if (searchInput) {
     const grid = document.querySelector('.characters__grid');
@@ -112,6 +114,8 @@ if (searchInput) {
                     } else {
                         data.results.forEach(element => renderCard('#char-card', element));
                     }
+                }).catch(function(error) {
+                    console.warn('API response issue has taken place: ', error)
                 });
             }
         }, 500);
@@ -120,21 +124,6 @@ if (searchInput) {
 }
 
 function init() {
-    // get all people
-    // swapiModule.getPeople({search: "r2"}).then(function(data) {
-    //   console.log("Result of getPeople", data);
-    // });
-
-    //get all people, page 2
-    // swapiModule.getPeople({page: 8}).then(function(data) {
-    //   console.log("Result of getPeople (page 2)", data);
-    // });
-
-    // //get one person (assumes 1 works)
-    // swapiModule.getPerson(1).then(function(data) {
-    //   log("Result of getPerson/1", data);
-    // });
-
     const url = location.search.substring(1);
     let urlParams = url ? JSON.parse('{"' + url.replace(/&/g, '","').replace(/=/g,'":"') + '"}', function(key, value) { return key===""?value:decodeURIComponent(value) }) : null;
     let personToRender = urlParams ? urlParams.char : 1; // 1 as a temp fallback
@@ -203,7 +192,9 @@ function init() {
         }).then(function(data){
             var event = new CustomEvent('character:done', { 'detail': {'planet' : data.homeworld} });
             document.dispatchEvent(event);
-        });
+        }).catch(function(error) {
+            console.warn('API response issue has taken place: ', error)
+        });;
     }
 }
 
@@ -223,6 +214,8 @@ async function log(planet, pageCounter) {
             });
             // console.log("Result of getPeople", filteredResults);
             filteredResults.forEach(element => renderCard('#char-card', element));
+        }).catch(function(error) {
+            console.warn('API response issue has taken place: ', error)
         });
 }
 
@@ -240,6 +233,8 @@ async function logAll(pageCounter) {
             const grid = document.querySelector('.characters__grid');
             if (pageCounter == 1) grid.innerHTML = "";
             data.results.forEach(element => renderCard('#char-card', element));
+        }).catch(function(error) {
+            console.warn('API response issue has taken place: ', error)
         });
 }
 
@@ -278,17 +273,6 @@ function isArray(arr) {
 
 /**
  *
- * @description Determines if a provided value is an Array
- * @param {string} arr The string to check
- * @return {boolean}
- */
-function removeElement(id) { // not in use
-    var elem = document.getElementById(id);
-    return elem.parentNode.removeChild(elem);
-}
-
-/**
- *
  * @description Sorts the DOM elements
  * @param {string} template Card template ID
  * @param {object} card Character object
@@ -307,21 +291,29 @@ function sort(attrName, direction) {
         }
     }
 
-    itemsArr.sort(function(a, b) {
-        var valA = a.querySelector(`.characters__val--${attrName}`).innerText.trim() ? a.querySelector(`.characters__val--${attrName}`).innerText.trim() : 0;
-        var valB = a.querySelector(`.characters__val--${attrName}`).innerText.trim() ? a.querySelector(`.characters__val--${attrName}`).innerText.trim() : 0;
+    if (direction > 0) {
+        itemsArr.sort(function(a, b) {
+            var valA = isNaN(parseFloat(a.querySelector(`.characters__val--${attrName}`).innerText.trim()))
+                        ? 0
+                        : parseFloat(a.querySelector(`.characters__val--${attrName}`).innerText.trim());
+            var valB = isNaN(parseFloat(b.querySelector(`.characters__val--${attrName}`).innerText.trim()))
+                        ? 0
+                        : parseFloat(b.querySelector(`.characters__val--${attrName}`).innerText.trim());
 
-        console.log(valA, valB);
-        return valA == valB
-                ? 0
-                : (valA > valB ? 1 : -1);
-    });
+            return valA == valB
+                    ? 0
+                    : (valA > valB ? 1 : -1);
+        });
+    } else {
+        itemsArr.reverse();
+    }
 
-    console.log(itemsArr);
 
     for (i = 0; i < itemsArr.length; ++i) {
         list.appendChild(itemsArr[i]);
     }
+
+    // [TODO] As a possible option, this may be re-created with sort after fetching data
 }
 
 /**
