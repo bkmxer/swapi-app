@@ -9,10 +9,10 @@ Start Wars API-base application
 5) See your application
 
 Another available scripts:
-    "npm run dev" - running a dev more
-    "npm run build" - biuilding an app for prod
-    "npm run watch" - startting thee watcher
-    "npm run start" - starting webpack server
+-    "npm run dev" - running a dev more
+-    "npm run build" - biuilding an app for prod
+-    "npm run watch" - startting thee watcher
+-    "npm run start" - starting webpack server
 
 !!!NOTE: Consider changing sort option several times, the first sort result is not rellevant, to be fixed.
 
